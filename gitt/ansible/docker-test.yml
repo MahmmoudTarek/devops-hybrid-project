@@ -1,0 +1,27 @@
+---
+- name: Deploy my app
+  hosts: webi
+  become: yes
+
+  tasks:
+
+    - name: Pull latest image
+      community.docker.docker_image:
+        name: mahmoudtarekjenkins/myapp:v1
+        source: pull
+
+
+    - name: Remove old container
+      community.docker.docker_container:
+        name: myapp
+        state: absent
+
+
+    - name: Start application
+      community.docker.docker_container:
+        name: myapp
+        image: mahmoudtarekjenkins/myapp:v1
+        state: started
+        restart_policy: always
+        ports:
+          - "8080:80"
