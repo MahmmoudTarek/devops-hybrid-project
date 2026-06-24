@@ -40,11 +40,12 @@ stages {
     }
 
     stage('Verify') {
-        steps {
+       steps {
             sh '''
             docker ps
+            curl localhost:8080
             '''
-        }
+       }
     }
 }
 
