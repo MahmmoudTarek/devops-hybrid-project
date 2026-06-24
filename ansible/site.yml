@@ -1,0 +1,11 @@
+---
+- name: Configure all servers
+  hosts: webservers
+  become: yes
+
+  roles:
+
+    - common
+    - docker
+    - node_exporter
+    - app
