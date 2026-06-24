@@ -6,6 +6,6 @@ echo "=== Deploy started ==="
 
 echo "Running docker compose..."
 cd app
-docker compose up -d
+docker-compose up -d
 
 echo "=== Deploy finished ==="
