@@ -2,8 +2,10 @@
 
 set -e
 
-echo "Running Ansible deployment..."
+echo "=== Deploy started ==="
 
-cd ansible
+echo "Running docker compose..."
+cd app
+docker compose up -d
 
-ansible-playbook -i inventory site.yml
+echo "=== Deploy finished ==="
