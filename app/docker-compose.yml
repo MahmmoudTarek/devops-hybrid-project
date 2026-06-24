@@ -6,4 +6,4 @@ services:
     image: nginx:latest
     container_name: devops-app
     ports:
-      - "80:80"
+      - "8080:80"
