@@ -6,10 +6,27 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('aws-secret-key')
         AWS_DEFAULT_REGION = 'us-east-1'
     }
+       stage('AWS Test') {
+          steps {
+             sh '''
+             aws sts get-caller-identity
+             '''
+           }
+       }
+       stage('AWS Test') {
+            steps {
+               sh '''
+               echo "Region: $AWS_DEFAULT_REGION"
 
+               if [ -z "$AWS_ACCESS_KEY_ID" ]; then
+               echo "AWS_ACCESS_KEY_ID is empty"
+               exit 1
+               fi
 
-    stages {
-
+               aws sts get-caller-identity
+               '''
+            }
+       }
         stage('Checkout') {
             steps {
                 git branch: 'master',
