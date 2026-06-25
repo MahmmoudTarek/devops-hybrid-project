@@ -10,7 +10,7 @@ pipeline {
 
    stages {
 
-       stage('AWS Test') {
+       stage('AWS Ttest') {
           steps {
              sh '''
              aws sts get-caller-identity
