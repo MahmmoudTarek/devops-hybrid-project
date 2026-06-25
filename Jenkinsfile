@@ -65,7 +65,7 @@ pipeline {
                 ]) {
                     sh '''
                     cd terraform
-                    terraform destroy
+                    terraform apply -auto-approve
                     '''
                 }
             }
