@@ -2,7 +2,7 @@ resource "local_file" "prometheus_config" {
 
   depends_on = [
     aws_instance.web1,
-    aws_instance.web2
+    aws_instance.web2,
     aws_instance.web3
   ]
 

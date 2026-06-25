@@ -1,56 +1,68 @@
 pipeline {
-agent any
+    agent any
 
+    stages {
 
-stages {
-
-    stage('Checkout') {
-        steps {
-            git branch: 'master',
-                credentialsId: 'github-ssh',
-                url: 'git@github.com:MahmmoudTarek/devops-hybrid-project.git'
+        stage('Checkout') {
+            steps {
+                git branch: 'master',
+                    credentialsId: 'github-ssh',
+                    url: 'git@github.com:MahmmoudTarek/devops-hybrid-project.git'
+            }
         }
-    }
 
-    stage('Terraform Validate') {
-        steps {
-            sh '''
-            cd terraform
-            terraform init
-            terraform validate
-            terraform apply 
-            '''
+        stage('Terraform Init') {
+            steps {
+                sh '''
+                cd terraform
+                terraform init
+                '''
+            }
         }
-    }
 
-    stage('Ansible Check') {
-        steps {
-            sh '''
-            cd ansible
-            ansible-playbook site.yml --syntax-check
-            ansible-playbook site.yml --syntax-check            
-            '''
+        stage('Terraform Plan') {
+            steps {
+                sh '''
+                cd terraform
+                terraform plan
+                '''
+            }
         }
-    }
 
-    stage('Deploy App') {
-        steps {
-            sh '''
-            ./deploy.sh
-            '''
+        stage('Terraform Apply') {
+            steps {
+                sh '''
+                cd terraform
+                terraform apply -auto-approve
+                '''
+            }
         }
-    }
 
-    stage('Verify') {
-       steps {
-            sh '''
-            docker ps
-            curl localhost:8080
-            '''
-       }
+        stage('Ansible Deploy') {
+            steps {
+                sh '''
+                cd ansible
+                ansible-playbook -i inventory/hosts.ini site.yml
+                '''
+            }
+        }
+
+        stage('Deploy Application') {
+            steps {
+                sh '''
+                chmod +x deploy.sh
+                ./deploy.sh
+                '''
+            }
+        }
+
+        stage('Verify') {
+            steps {
+                sh '''
+                docker ps
+                curl http://localhost:8080
+                '''
+            }
+        }
     }
 }
-
-
-}
-
