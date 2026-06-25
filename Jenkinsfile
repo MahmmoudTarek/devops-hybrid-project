@@ -11,10 +11,10 @@ pipeline {
             steps {
                 withCredentials([
                     [$class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-creds']
+                     credentialsId: 'aws-creds']
                 ]) {
                     sh '''
-                    echo "Testing AWS credentials..."
+                    echo "Region: $AWS_DEFAULT_REGION"
                     aws sts get-caller-identity
                     '''
                 }
@@ -33,7 +33,7 @@ pipeline {
             steps {
                 withCredentials([
                     [$class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-creds']
+                     credentialsId: 'aws-creds']
                 ]) {
                     sh '''
                     cd terraform
@@ -47,7 +47,7 @@ pipeline {
             steps {
                 withCredentials([
                     [$class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-creds']
+                     credentialsId: 'aws-creds']
                 ]) {
                     sh '''
                     cd terraform
@@ -61,7 +61,7 @@ pipeline {
             steps {
                 withCredentials([
                     [$class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-creds']
+                     credentialsId: 'aws-creds']
                 ]) {
                     sh '''
                     cd terraform
@@ -93,7 +93,7 @@ pipeline {
             steps {
                 sh '''
                 docker ps
-                curl http://localhost:8080 || true
+                curl http://localhost:8080
                 '''
             }
         }
