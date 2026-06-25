@@ -100,3 +100,28 @@ resource "aws_instance" "web2" {
 
 }
 
+resource "aws_instance" "web3" {
+
+  ami = var.ami
+
+  instance_type = var.instance_type
+
+  subnet_id = aws_subnet.public_subnet.id
+
+
+  key_name = aws_key_pair.devops_key.key_name
+
+
+  vpc_security_group_ids = [
+    aws_security_group.devops_sg.id
+  ]
+
+
+  tags = {
+
+    Name = "devops-web3"
+
+  }
+
+}
+

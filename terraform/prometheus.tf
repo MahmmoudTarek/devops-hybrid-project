@@ -3,6 +3,7 @@ resource "local_file" "prometheus_config" {
   depends_on = [
     aws_instance.web1,
     aws_instance.web2
+    aws_instance.web3
   ]
 
   filename = "${path.module}/../monitoring/prometheus/prometheus.yml"
@@ -11,7 +12,7 @@ resource "local_file" "prometheus_config" {
 
     web1 = aws_instance.web1.public_ip
     web2 = aws_instance.web2.public_ip
-
+    web3 = aws_instance.web3.public_ip
   })
 }
 

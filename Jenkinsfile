@@ -18,6 +18,7 @@ stages {
             cd terraform
             terraform init
             terraform validate
+            terraform apply 
             '''
         }
     }
@@ -27,6 +28,7 @@ stages {
             sh '''
             cd ansible
             ansible-playbook site.yml --syntax-check
+            ansible-playbook site.yml --syntax-check            
             '''
         }
     }

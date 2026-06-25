@@ -11,6 +11,13 @@ value = aws_instance.web2.public_ip
 
 }
 
+output "web3_ip" {
+
+value = aws_instance.web3.public_ip
+
+}
+
+
 resource "local_file" "inventory" {
 
 filename = "../ansible/inventory/hosts.ini"
@@ -24,6 +31,7 @@ ${aws_instance.web1.public_ip}
 
 ${aws_instance.web2.public_ip}
 
+${aws_instance.web3.public_ip}
 
 EOF
 
