@@ -6,9 +6,19 @@ pipeline {
     }
 
     stages {
+   
+        stage('Workspace Info') {
+          steps {
+             sh '''
+             echo "WORKSPACE=$WORKSPACE"
+             pwd
+             ls -la "$WORKSPACE"
+             '''
+          }
+        }
 
         stage('Terraform Init') {
-            steps {
+          steps {
                 dir('terraform') {
                     withCredentials([
                         [$class: 'AmazonWebServicesCredentialsBinding',
