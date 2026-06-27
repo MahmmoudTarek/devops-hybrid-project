@@ -1,0 +1,24 @@
+---
+
+- name: Wait until yum lock disappears
+  shell: |
+    while sudo fuser /var/run/yum.pid >/dev/null 2>&1; do
+      echo "Waiting for yum..."
+      sleep 5
+    done
+  changed_when: false
+
+- name: Update packages
+  yum:
+    name: "*"
+    state: latest
+
+
+- name: Install tools
+  yum:
+    name:
+      - git
+      - curl
+      - wget
+      - vim
+    state: present
